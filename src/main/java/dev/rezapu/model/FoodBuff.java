@@ -2,14 +2,13 @@ package dev.rezapu.model;
 
 import dev.rezapu.enums.FoodBuffType;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import lombok.*;
+import org.jetbrains.annotations.NotNull;
 
 @Entity
 @Data
 @NoArgsConstructor
+@RequiredArgsConstructor
 @AllArgsConstructor
 public class FoodBuff {
     @Id
@@ -27,4 +26,10 @@ public class FoodBuff {
 
     @Column(nullable = false)
     private int level;
+
+    public FoodBuff(@NotNull String address, @NotNull FoodBuffType type, int level) {
+        this.address = address;
+        this.type = type;
+        this.level = level;
+    }
 }
