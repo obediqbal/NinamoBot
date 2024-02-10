@@ -3,6 +3,7 @@ package dev.rezapu;
 import dev.rezapu.commands.PingCommand;
 import dev.rezapu.dao.MemberDAO;
 import dev.rezapu.model.Member;
+import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
@@ -11,7 +12,8 @@ import net.dv8tion.jda.api.requests.GatewayIntent;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException{
-        JDABuilder builder = JDABuilder.createDefault("MTIwNTMyOTk1ODIxNDQzODk0NA.G9oy2E.azy41sYisoUJL8bfBkeCW0pKlSWWVBixrqdkJ4");
+        Dotenv dotenv = Dotenv.load();
+        JDABuilder builder = JDABuilder.createDefault(dotenv.get("BOT_TOKEN"));
 
         JDA jda = builder
                 .setActivity(Activity.listening("your heatbeat"))
