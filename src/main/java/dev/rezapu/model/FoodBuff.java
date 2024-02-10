@@ -3,10 +3,12 @@ package dev.rezapu.model;
 import dev.rezapu.enums.FoodBuffType;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.Accessors;
 import org.jetbrains.annotations.NotNull;
 
 @Entity
 @Data
+@Accessors(chain = true)
 @NoArgsConstructor
 @RequiredArgsConstructor
 @AllArgsConstructor

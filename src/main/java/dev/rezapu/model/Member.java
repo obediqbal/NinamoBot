@@ -2,9 +2,11 @@ package dev.rezapu.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.Accessors;
 
 @Entity
 @Data
+@Accessors(chain = true)
 @NoArgsConstructor
 @RequiredArgsConstructor
 @AllArgsConstructor
@@ -24,13 +26,15 @@ public class Member {
     @Column(columnDefinition = "INT DEFAULT 0")
     private int point;
 
-    public void addPoint(int point){
+    public Member addPoint(int point){
         this.point += point;
+        return this;
     }
-    public void removePoint(int point) throws Exception{
+    public Member removePoint(int point) throws Exception{
         if(this.point-point<0){
             throw new Exception("Not enough point");
         }
         this.point -= point;
+        return this;
     }
 }
