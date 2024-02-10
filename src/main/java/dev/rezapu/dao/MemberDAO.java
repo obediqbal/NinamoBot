@@ -5,37 +5,7 @@ import dev.rezapu.utils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-public class MemberDAO {
-    private final SessionFactory sessionFactory;
-
-    public MemberDAO(){
-        this.sessionFactory = HibernateUtil.getSessionFactory();
-    }
-
-    public void addMember(Member member){
-        try(Session session = sessionFactory.openSession()){
-            session.beginTransaction();
-            session.persist(member);
-            session.getTransaction().commit();
-        }
-    }
-
-    public void deleteMember(Member member){
-        try(Session session = sessionFactory.openSession()){
-            session.beginTransaction();
-            session.remove(member);
-            session.getTransaction().commit();
-        }
-    }
-
-    public void updateMember(Member member){
-        try(Session session = sessionFactory.openSession()){
-            session.beginTransaction();
-            session.merge(member);
-            session.getTransaction().commit();
-        }
-    }
-
+public class MemberDAO extends BaseDAO<Member>{
     public Member getByDiscordId(String discord_id){
         try(Session session = sessionFactory.openSession()){
             session.beginTransaction();
