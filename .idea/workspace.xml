@@ -5,12 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="143753a0-3a7e-4705-9c57-d562bccd0b93" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/rezapu/exceptions/BadUsageException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dev/rezapu/commands/ModifyPointCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dev/rezapu/commands/AddPointCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/rezapu/commands/AddPointCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/rezapu/commands/DeductPointCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/rezapu/commands/DeductPointCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dev/rezapu/listeners/ManageMembersListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/rezapu/listeners/ManageMembersListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dev/rezapu/model/Member.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/rezapu/model/Member.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dev/rezapu/utils/CommandsUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/rezapu/utils/CommandsUtil.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,7 +65,7 @@
       <workItem from="1707573834950" duration="7242000" />
       <workItem from="1707626482304" duration="18602000" />
       <workItem from="1707899393805" duration="15583000" />
-      <workItem from="1707988966763" duration="10585000" />
+      <workItem from="1707988966763" duration="11795000" />
     </task>
     <servers />
   </component>

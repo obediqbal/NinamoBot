@@ -2,6 +2,7 @@ package dev.rezapu.listeners;
 
 import dev.rezapu.commands.AddPointCommand;
 import dev.rezapu.commands.DeductPointCommand;
+import dev.rezapu.commands.ModifyPointCommand;
 import dev.rezapu.enums.CommandAccessLevel;
 import dev.rezapu.exceptions.BadUsageException;
 import dev.rezapu.exceptions.InvalidUsageException;
@@ -27,12 +28,10 @@ public class ManageMembersListener extends BaseListener {
         try{
             switch (command) {
                 case ".addp", ".addpoint", ".padd", ".pointadd", ".ap" -> {
-                    AddPointCommand addPointCommand = CommandsUtil.getCommand(AddPointCommand.class, event);
-                    addPointCommand.action(event);
+                    CommandsUtil.getCommand(AddPointCommand.class, event).action(event);
                 }
                 case ".deductp", ".deductpoint", ".pdeduct", ".pointdeduct", ".dp" -> {
-                    DeductPointCommand deductPointCommand = CommandsUtil.getCommand(DeductPointCommand.class, event);
-                    deductPointCommand.action(event);
+                    CommandsUtil.getCommand(DeductPointCommand.class, event).action(event);
                 }
             }
         }
