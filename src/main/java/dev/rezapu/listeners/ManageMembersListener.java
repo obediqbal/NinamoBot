@@ -1,7 +1,9 @@
 package dev.rezapu.listeners;
 
 import dev.rezapu.commands.AddPointCommand;
+import dev.rezapu.commands.DeductPointCommand;
 import dev.rezapu.enums.CommandAccessLevel;
+import dev.rezapu.exceptions.BadUsageException;
 import dev.rezapu.exceptions.InvalidUsageException;
 import dev.rezapu.exceptions.UnauthorizedException;
 import dev.rezapu.utils.CommandsUtil;
@@ -9,13 +11,17 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class ManageMembersListener extends BaseListener {
     public ManageMembersListener(){
-        AddPointCommand addPointCommand = new AddPointCommand(CommandAccessLevel.MEMBER, "Add a specified amount of point to user");
+        AddPointCommand addPointCommand = new AddPointCommand(CommandAccessLevel.MASTER, "Add a specified amount of point to user");
+        DeductPointCommand deductPointCommand = new DeductPointCommand(CommandAccessLevel.MASTER, "Deduct a specified amount of point from user");
+
         CommandsUtil.addCommand(addPointCommand);
+        CommandsUtil.addCommand(deductPointCommand);
+
     }
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event){
-        String strippedMessage =event.getMessage().getContentRaw().strip();
+        String strippedMessage = event.getMessage().getContentRaw().strip();
         String[] prompts = strippedMessage.split("\\s+");
         String command = prompts[0];
         try{
@@ -24,28 +30,13 @@ public class ManageMembersListener extends BaseListener {
                     AddPointCommand addPointCommand = CommandsUtil.getCommand(AddPointCommand.class, event);
                     addPointCommand.action(event);
                 }
-//                case ".deductp", ".deductpoint", ".pdeduct", ".pointdeduct", ".dp" -> {
-//                    if(CommandPatternUtil.match(
-//                            strippedMessage,
-//                            CommandPatternType.COMMAND,
-//                            CommandPatternType.MENTION,
-//                            CommandPatternType.INT)
-//                    ) {
-//                        MemberDAO memberDAO = createProtectedDAO(event, MemberDAO.class);
-//                        Member author = memberDAO.getByDiscordId(event.getAuthor().getId());
-//                        memberDAO.updateData(author.removePoint(Integer.parseInt(prompts[1])));
-//                    }
-//                }
-//                case ".register", ".reg" -> {
-//                    MemberDAO memberDAO = createPublicDAO(MemberDAO.class);
-//                    memberDAO.addData(new Member(event.getAuthor().getId(), prompts[1]));
-//                }
-//                case ".unregister", ".unreg" -> {
-////                    memberDAO.deleteData(author);
-//                }
+                case ".deductp", ".deductpoint", ".pdeduct", ".pointdeduct", ".dp" -> {
+                    DeductPointCommand deductPointCommand = CommandsUtil.getCommand(DeductPointCommand.class, event);
+                    deductPointCommand.action(event);
+                }
             }
         }
-        catch (InvalidUsageException | UnauthorizedException e){
+        catch (BadUsageException | InvalidUsageException | UnauthorizedException e){
             event.getMessage().reply(e.getMessage()).queue();
         } catch (Exception e) {
             throw new RuntimeException(e);
