@@ -19,16 +19,16 @@ public class AddPointCommand extends BaseCommand implements MessageActionable{
     }
 
     public void action(MessageReceivedEvent event) throws InvalidUsageException {
-        String strippedMessage =event.getMessage().getContentRaw().strip();
-        String[] prompts = strippedMessage.split("\\s+");
+        String[] prompts = CommandsUtil.getPrompt(event);
 
-        if(!isUsageValid(strippedMessage)) throw new InvalidUsageException("<@User> <Jumlah poin>");
+        if(!isUsageValid(event.getMessage().getContentRaw().strip())) throw new InvalidUsageException("<@User> <Jumlah poin>");
 
         MemberDAO memberDAO = new MemberDAO();
         String target_id = prompts[1].substring(2, prompts[1].length()-1);
         Member target = memberDAO.getByDiscordId(target_id);
         if(target == null) memberDAO.addData(new Member(target_id, ""));
         assert target != null;
+
         memberDAO.updateData(target.addPoint(Integer.parseInt(prompts[2])));
 
         event.getMessage().reply("Berhasil menambahkan poin untuk <@"+target.getDiscord_id()+"> sebanyak "+prompts[2]).queue();

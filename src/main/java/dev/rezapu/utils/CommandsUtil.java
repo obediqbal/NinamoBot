@@ -66,6 +66,11 @@ public class CommandsUtil {
         return Pattern.compile(patternBuilder.toString()).matcher(target).matches();
     }
 
+    public static String[] getPrompt(MessageReceivedEvent event){
+        String strippedMessage = event.getMessage().getContentRaw().strip();
+        return strippedMessage.split("\\s+");
+    }
+
     private CommandsUtil(){
         commands = new HashMap<>();
     }
