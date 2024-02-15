@@ -1,17 +1,16 @@
 package dev.rezapu.listeners;
 
 import dev.rezapu.commands.AddPointCommand;
-import dev.rezapu.dao.MemberDAO;
 import dev.rezapu.enums.CommandAccessLevel;
-import dev.rezapu.enums.CommandPatternType;
-import dev.rezapu.model.Member;
+import dev.rezapu.exceptions.InvalidUsageException;
+import dev.rezapu.exceptions.UnauthorizedException;
 import dev.rezapu.utils.CommandsUtil;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class ManageMembersListener extends BaseListener {
     public ManageMembersListener(){
         AddPointCommand addPointCommand = new AddPointCommand(CommandAccessLevel.MEMBER, "Add a specified amount of point to user");
-        CommandsUtil.addCommand(addPointCommand, true, false);
+        CommandsUtil.addCommand(addPointCommand);
     }
 
     @Override
@@ -22,8 +21,8 @@ public class ManageMembersListener extends BaseListener {
         try{
             switch (command) {
                 case ".addp", ".addpoint", ".padd", ".pointadd", ".ap" -> {
-                    AddPointCommand addPointCommand = CommandsUtil.getCommand(AddPointCommand.class);
-                    if (addPointCommand != null) addPointCommand.action(event);
+                    AddPointCommand addPointCommand = CommandsUtil.getCommand(AddPointCommand.class, event);
+                    addPointCommand.action(event);
                 }
 //                case ".deductp", ".deductpoint", ".pdeduct", ".pointdeduct", ".dp" -> {
 //                    if(CommandPatternUtil.match(
@@ -45,6 +44,9 @@ public class ManageMembersListener extends BaseListener {
 ////                    memberDAO.deleteData(author);
 //                }
             }
+        }
+        catch (InvalidUsageException | UnauthorizedException e){
+            event.getMessage().reply(e.getMessage()).queue();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
