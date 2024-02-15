@@ -2,7 +2,6 @@ package dev.rezapu.listeners;
 
 import dev.rezapu.commands.AddPointCommand;
 import dev.rezapu.commands.DeductPointCommand;
-import dev.rezapu.commands.ModifyPointCommand;
 import dev.rezapu.enums.CommandAccessLevel;
 import dev.rezapu.exceptions.BadUsageException;
 import dev.rezapu.exceptions.InvalidUsageException;
@@ -15,9 +14,7 @@ public class ManageMembersListener extends BaseListener {
         AddPointCommand addPointCommand = new AddPointCommand(CommandAccessLevel.MASTER, "Add a specified amount of point to user");
         DeductPointCommand deductPointCommand = new DeductPointCommand(CommandAccessLevel.MASTER, "Deduct a specified amount of point from user");
 
-        CommandsUtil.addCommand(addPointCommand);
-        CommandsUtil.addCommand(deductPointCommand);
-
+        CommandsUtil.addCommands(addPointCommand, deductPointCommand);
     }
 
     @Override

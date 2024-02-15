@@ -49,6 +49,13 @@ public class CommandsUtil {
         commandsUtil.commands.put(command.getClass(), command);
     }
 
+    @SafeVarargs
+    public static <T extends BaseCommand> void addCommands(T... commands){
+        for(T command: commands){
+            addCommand(command);
+        }
+    }
+
     public static boolean match(String target, CommandPatternType... patterns){
         StringBuilder patternBuilder = new StringBuilder();
         patternBuilder.append("^\s*");
