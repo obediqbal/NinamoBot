@@ -2,9 +2,11 @@ package dev.rezapu.listeners;
 
 import dev.rezapu.commands.AddPointCommand;
 import dev.rezapu.commands.DeductPointCommand;
+import dev.rezapu.commands.ProfileCommand;
 import dev.rezapu.enums.CommandAccessLevel;
 import dev.rezapu.exceptions.BadUsageException;
 import dev.rezapu.exceptions.InvalidUsageException;
+import dev.rezapu.exceptions.NotFoundException;
 import dev.rezapu.exceptions.UnauthorizedException;
 import dev.rezapu.utils.CommandsUtil;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -13,8 +15,9 @@ public class ManageMembersListener extends BaseListener {
     public ManageMembersListener(){
         AddPointCommand addPointCommand = new AddPointCommand(CommandAccessLevel.MASTER, "Add a specified amount of point to user");
         DeductPointCommand deductPointCommand = new DeductPointCommand(CommandAccessLevel.MASTER, "Deduct a specified amount of point from user");
+        ProfileCommand profileCommand = new ProfileCommand(CommandAccessLevel.PUBLIC, "Shows the profile of the selected user");
 
-        CommandsUtil.addCommands(addPointCommand, deductPointCommand);
+        CommandsUtil.addCommands(addPointCommand, deductPointCommand, profileCommand);
     }
 
     @Override
@@ -30,9 +33,12 @@ public class ManageMembersListener extends BaseListener {
                 case ".deductp", ".deductpoint", ".pdeduct", ".pointdeduct", ".dp" -> {
                     CommandsUtil.getCommand(DeductPointCommand.class, event).action(event);
                 }
+                case ".p", ".profile" -> {
+                    CommandsUtil.getCommand(ProfileCommand.class, event).action(event);
+                }
             }
         }
-        catch (BadUsageException | InvalidUsageException | UnauthorizedException e){
+        catch (NotFoundException | BadUsageException | InvalidUsageException | UnauthorizedException e){
             event.getMessage().reply(e.getMessage()).queue();
         } catch (Exception e) {
             throw new RuntimeException(e);

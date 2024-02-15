@@ -56,6 +56,10 @@ public class CommandsUtil {
         }
     }
 
+    public static String getDiscordIdFromMention(String mention){
+        return mention.substring(2, mention.length()-1);
+    }
+
     public static boolean match(String target, CommandPatternType... patterns){
         StringBuilder patternBuilder = new StringBuilder();
         patternBuilder.append("^\s*");
