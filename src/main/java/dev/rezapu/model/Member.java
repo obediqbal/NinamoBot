@@ -32,7 +32,7 @@ public class Member {
     }
     public Member removePoint(int point) throws Exception{
         if(this.point-point<0){
-            throw new Exception("Not enough point");
+            throw new Exception();
         }
         this.point -= point;
         return this;
