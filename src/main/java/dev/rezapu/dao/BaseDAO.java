@@ -11,11 +11,12 @@ public abstract class BaseDAO<T> {
         this.sessionFactory = HibernateUtil.getSessionFactory();
     }
 
-    public void addData(T data){
+    public T addData(T data){
         try(Session session = sessionFactory.openSession()){
             session.beginTransaction();
             session.persist(data);
             session.getTransaction().commit();
+            return data;
         }
     }
 
