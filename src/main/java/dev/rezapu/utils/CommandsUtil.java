@@ -3,43 +3,50 @@ package dev.rezapu.utils;
 import dev.rezapu.commands.BaseCommand;
 import dev.rezapu.commands.InteractionActionable;
 import dev.rezapu.commands.MessageActionable;
+import dev.rezapu.enums.CommandAccessLevel;
 import dev.rezapu.enums.CommandPatternType;
+import dev.rezapu.exceptions.UnauthorizedException;
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.events.interaction.command.GenericCommandInteractionEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 public class CommandsUtil {
     private static final CommandsUtil commandsUtil = build();
-    private final Map<Class<? extends BaseCommand>, MessageActionable> messageCommands;
-    private final Map<Class<? extends BaseCommand>, InteractionActionable> interactionCommands;
+    private final Map<Class<? extends BaseCommand>, BaseCommand> commands;
 
     @SuppressWarnings("unchecked")
-    public static <T extends BaseCommand> T getCommand(Class<T> clazz){
-        if(MessageActionable.class.isAssignableFrom(clazz)){
-            return (T) commandsUtil.messageCommands.get(clazz);
-        }else if(InteractionActionable.class.isAssignableFrom(clazz)){
-            return (T) commandsUtil.interactionCommands.get(clazz);
+    public static <T extends BaseCommand> T getCommand(Class<T> clazz, MessageReceivedEvent event) throws UnauthorizedException, InstantiationException {
+        if(MessageActionable.class.isAssignableFrom(clazz)) {
+            T command = (T) commandsUtil.commands.get(clazz);
+            if (CommandsUtil.isAuthorized(Objects.requireNonNull(event.getMember()), command.getAccessLevel()))
+                return command;
+            throw new UnauthorizedException();
         }
-        return null;
+        throw new InstantiationException();
     }
 
-    private CommandsUtil(){
-        messageCommands = new HashMap<>();
-        interactionCommands = new HashMap<>();
+    @SuppressWarnings("unchecked")
+    public static <T extends BaseCommand> T getCommand(Class<T> clazz, GenericCommandInteractionEvent event) throws UnauthorizedException, InstantiationException{
+        if(InteractionActionable.class.isAssignableFrom(clazz)){
+            T command = (T) commandsUtil.commands.get(clazz);
+            if (CommandsUtil.isAuthorized(Objects.requireNonNull(event.getMember()), command.getAccessLevel()))
+                return command;
+            throw new UnauthorizedException();
+        }
+        throw new InstantiationException();
     }
 
-    private static CommandsUtil build(){
-        return new CommandsUtil();
-    }
-
-    public static <T extends BaseCommand> void addCommand(T command, boolean isMessageCommand, boolean isInteractionCommand){
-        if(isMessageCommand){
-            commandsUtil.messageCommands.put(command.getClass(), (MessageActionable) command);
-        }
-        if(isInteractionCommand){
-            commandsUtil.interactionCommands.put(command.getClass(), (InteractionActionable) command);
-        }
+    public static <T extends BaseCommand> void addCommand(T command){
+        commandsUtil.commands.put(command.getClass(), command);
     }
 
     public static boolean match(String target, CommandPatternType... patterns){
@@ -57,5 +64,38 @@ public class CommandsUtil {
             else patternBuilder.append("\\s*$");
         }
         return Pattern.compile(patternBuilder.toString()).matcher(target).matches();
+    }
+
+    private CommandsUtil(){
+        commands = new HashMap<>();
+    }
+
+    private static CommandsUtil build(){
+        return new CommandsUtil();
+    }
+
+    private static boolean isAuthorized(Member member, CommandAccessLevel commandAccessLevel){
+        if(member.getUser().isBot()) return false;
+        if(member.isOwner()) return true;
+        switch (commandAccessLevel){
+            case PUBLIC -> {
+                return true;
+            }
+            case MEMBER -> {
+                // TODO
+                return true;
+            }
+            case MOD -> {
+                // TODO
+                return true;
+            }
+            case MASTER -> {
+                List<Role> roles = member.getRoles();
+                for(Role role: roles){
+                    if(role.hasPermission(Permission.ADMINISTRATOR)) return true;
+                }
+            }
+        }
+        return false;
     }
 }
