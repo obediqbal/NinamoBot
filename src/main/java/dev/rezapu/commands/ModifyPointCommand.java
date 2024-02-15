@@ -27,20 +27,20 @@ public class ModifyPointCommand extends BaseCommand implements MessageActionable
         if(!isUsageValid(event.getMessage().getContentRaw().strip())) throw new InvalidUsageException("<@User> <Jumlah poin>");
 
         MemberDAO memberDAO = new MemberDAO();
-        String target_id = prompts[1].substring(2, prompts[1].length()-1);
+        String target_id = CommandsUtil.getDiscordIdFromMention(prompts[1]);
         Member target = memberDAO.getByDiscordId(target_id);
-        if(target == null) memberDAO.addData(new Member(target_id, ""));
+        if(target == null) target = memberDAO.addData(new Member(target_id, ""));
         assert target != null;
 
         int point = Integer.parseInt(prompts[2]);
         if (this.add){
             memberDAO.updateData(target.addPoint(point));
-            event.getMessage().reply("Berhasil menambahkan poin untuk <@"+target.getDiscord_id()+"> sebanyak "+prompts[2]).queue();
+            event.getMessage().reply("Berhasil menambahkan poin untuk <@"+target.getDiscord_id()+"> sebanyak "+point).queue();
         }
         else{
             try{
-                memberDAO.updateData(target.removePoint(Integer.parseInt(prompts[2])));
-                event.getMessage().reply("Berhasil mengurangi poin <@"+target.getDiscord_id()+"> sebanyak "+prompts[2]).queue();
+                memberDAO.updateData(target.removePoint(point));
+                event.getMessage().reply("Berhasil mengurangi poin <@"+target.getDiscord_id()+"> sebanyak "+point).queue();
             }catch(Exception e){
                 throw new BadUsageException("<@"+target.getDiscord_id()+"> tidak memiliki cukup poin");
             }
