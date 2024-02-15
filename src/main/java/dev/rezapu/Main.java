@@ -1,8 +1,10 @@
 package dev.rezapu;
 
 import dev.rezapu.commands.PingCommand;
-import dev.rezapu.dao.MemberDAO;
-import dev.rezapu.model.Member;
+import dev.rezapu.enums.CommandAccessLevel;
+import dev.rezapu.listeners.ManageMembersListener;
+import dev.rezapu.listeners.PingListener;
+import dev.rezapu.utils.CommandsUtil;
 import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -17,7 +19,7 @@ public class Main {
 
         JDA jda = builder
                 .setActivity(Activity.listening("your heatbeat"))
-                .addEventListeners(new PingCommand())
+                .addEventListeners(new PingListener(), new ManageMembersListener())
                 .enableIntents(GatewayIntent.MESSAGE_CONTENT)
                 .build();
 
