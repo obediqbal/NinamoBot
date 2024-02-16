@@ -9,7 +9,6 @@ import dev.rezapu.exceptions.UnauthorizedException;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
-import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.command.GenericCommandInteractionEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
@@ -92,26 +91,11 @@ public class CommandsUtil {
 
     private static boolean isAuthorized(Member member, CommandAccessLevel commandAccessLevel){
         if(member.getUser().isBot()) return false;
-        if(member.isOwner()) return true;
-        switch (commandAccessLevel){
-            case PUBLIC -> {
-                return true;
-            }
-            case MEMBER -> {
-                // TODO
-                return true;
-            }
-            case MOD -> {
-                // TODO
-                return true;
-            }
-            case MASTER -> {
-                List<Role> roles = member.getRoles();
-                for(Role role: roles){
-                    if(role.hasPermission(Permission.ADMINISTRATOR)) return true;
-                }
-            }
-        }
-        return false;
+
+        CommandAccessLevel memberLevel;
+        if(member.isOwner() || member.hasPermission(Permission.ADMINISTRATOR)) memberLevel = CommandAccessLevel.ADMIN;
+        else memberLevel = CommandAccessLevel.MEMBER;
+
+        return memberLevel.getLevel() >= commandAccessLevel.getLevel();
     }
 }
