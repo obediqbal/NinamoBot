@@ -29,7 +29,7 @@ public class ModifyPointCommand extends BaseCommand implements MessageActionable
         MemberDAO memberDAO = new MemberDAO();
         String target_id = CommandsUtil.getDiscordIdFromMention(prompts[1]);
         Member target = memberDAO.getByDiscordId(target_id);
-        if(target == null) target = memberDAO.addData(new Member(target_id, ""));
+        if(target == null) target = memberDAO.addData(new Member(target_id));
         assert target != null;
 
         int point = Integer.parseInt(prompts[2]);

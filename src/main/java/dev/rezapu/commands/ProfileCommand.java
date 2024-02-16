@@ -31,7 +31,7 @@ public class ProfileCommand extends BaseCommand implements MessageActionable{
         MemberDAO memberDAO = new MemberDAO();
         String discord_id = target.getId();
         dev.rezapu.model.Member targetModel = memberDAO.getByDiscordId(discord_id);
-        if(targetModel == null) targetModel = memberDAO.addData(new dev.rezapu.model.Member(discord_id, ""));
+        if(targetModel == null) targetModel = memberDAO.addData(new dev.rezapu.model.Member(discord_id));
 
 
         EmbedBuilder embedBuilder = new EmbedBuilder()
