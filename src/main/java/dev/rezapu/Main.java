@@ -5,6 +5,7 @@ import dev.rezapu.enums.CommandAccessLevel;
 import dev.rezapu.listeners.ManageMembersListener;
 import dev.rezapu.listeners.PingListener;
 import dev.rezapu.utils.CommandsUtil;
+import dev.rezapu.utils.HooksUtil;
 import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -32,6 +33,8 @@ public class Main {
         ).queue();
 
         jda.awaitReady();
+        HooksUtil.initHooks(jda);
+
         System.out.println("Ready");
 }
     }

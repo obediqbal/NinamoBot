@@ -14,5 +14,6 @@
         <!-- List of XML mapping files -->
         <mapping class = "dev.rezapu.model.Member"/>
         <mapping class = "dev.rezapu.model.FoodBuff"/>
+        <mapping class = "dev.rezapu.model.Hook"/>
     </session-factory>
 </hibernate-configuration>
