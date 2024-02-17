@@ -2,6 +2,7 @@ package dev.rezapu.listeners;
 
 import dev.rezapu.commands.AddPointCommand;
 import dev.rezapu.commands.DeductPointCommand;
+import dev.rezapu.commands.LeaderboardCommand;
 import dev.rezapu.commands.ProfileCommand;
 import dev.rezapu.enums.CommandAccessLevel;
 import dev.rezapu.exceptions.BadUsageException;
@@ -16,8 +17,9 @@ public class ManageMembersListener extends BaseListener {
         AddPointCommand addPointCommand = new AddPointCommand(CommandAccessLevel.ADMIN, "Add a specified amount of point to user");
         DeductPointCommand deductPointCommand = new DeductPointCommand(CommandAccessLevel.ADMIN, "Deduct a specified amount of point from user");
         ProfileCommand profileCommand = new ProfileCommand(CommandAccessLevel.PUBLIC, "Shows the profile of the selected user");
+        LeaderboardCommand leaderboardCommand = new LeaderboardCommand(CommandAccessLevel.ADMIN, "Shows the guild leaderboard");
 
-        CommandsUtil.addCommands(addPointCommand, deductPointCommand, profileCommand);
+        CommandsUtil.addCommands(addPointCommand, deductPointCommand, profileCommand, leaderboardCommand);
     }
 
     @Override
@@ -35,6 +37,9 @@ public class ManageMembersListener extends BaseListener {
                 }
                 case ".p", ".profile" -> {
                     CommandsUtil.getCommand(ProfileCommand.class, event).action(event);
+                }
+                case ".lb", ".leaderboard" -> {
+                    CommandsUtil.getCommand(LeaderboardCommand.class, event).action(event);
                 }
             }
         }
