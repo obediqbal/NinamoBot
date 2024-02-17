@@ -3,6 +3,7 @@ package dev.rezapu.commands;
 import dev.rezapu.dao.MemberDAO;
 import dev.rezapu.enums.CommandAccessLevel;
 import dev.rezapu.enums.CommandPatternType;
+import dev.rezapu.exceptions.BadUsageException;
 import dev.rezapu.exceptions.InvalidUsageException;
 import dev.rezapu.exceptions.NotFoundException;
 import dev.rezapu.utils.CommandsUtil;
@@ -21,12 +22,13 @@ public class ProfileCommand extends BaseCommand implements MessageActionable{
     }
 
     @Override
-    public void action(MessageReceivedEvent event) throws NotFoundException, InvalidUsageException {
+    public void action(MessageReceivedEvent event) throws NotFoundException, InvalidUsageException, BadUsageException {
         if (!isUsageValid(event.getMessage().getContentRaw().strip())) throw new InvalidUsageException(".profile <@User>");
 
-        String[] prompts = CommandsUtil.getPrompt(event);
-        Member target = event.getGuild().getMemberById(CommandsUtil.getDiscordIdFromMention(prompts[1]));
+        String[] prompts = getPrompt(event);
+        Member target = event.getGuild().getMemberById(getDiscordIdFromMention(prompts[1]));
         if(target==null) throw new NotFoundException("Profil tak ditemukan");
+        if (target.getUser().isBot()) throw new BadUsageException("Bot tidak bisa memiliki profil");
 
         MemberDAO memberDAO = new MemberDAO();
         String discord_id = target.getId();
