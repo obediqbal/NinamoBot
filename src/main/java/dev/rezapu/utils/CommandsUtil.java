@@ -1,5 +1,6 @@
 package dev.rezapu.utils;
 
+import dev.rezapu.commands.ActionableCommands;
 import dev.rezapu.commands.BaseCommand;
 import dev.rezapu.commands.InteractionActionable;
 import dev.rezapu.commands.MessageActionable;
@@ -19,29 +20,19 @@ import java.util.Objects;
 import java.util.regex.Pattern;
 
 public class CommandsUtil {
-    private static final CommandsUtil commandsUtil = build();
+    private static final CommandsUtil commandsUtil = new CommandsUtil();
     private final Map<Class<? extends BaseCommand>, BaseCommand> commands;
 
-    @SuppressWarnings("unchecked")
-    public static <T extends BaseCommand> T getCommand(Class<T> clazz, MessageReceivedEvent event) throws UnauthorizedException, InstantiationException {
-        if(MessageActionable.class.isAssignableFrom(clazz)) {
-            T command = (T) commandsUtil.commands.get(clazz);
-            if (CommandsUtil.isAuthorized(Objects.requireNonNull(event.getMember()), command.getAccessLevel()))
-                return command;
-            throw new UnauthorizedException();
-        }
-        throw new InstantiationException();
+    private CommandsUtil(){
+        commands = new HashMap<>();
     }
 
-    @SuppressWarnings("unchecked")
+    public static <T extends BaseCommand> T getCommand(Class<T> clazz, MessageReceivedEvent event) throws UnauthorizedException, InstantiationException {
+        return getCommand(clazz, event.getMember(), MessageActionable.class);
+    }
+
     public static <T extends BaseCommand> T getCommand(Class<T> clazz, GenericCommandInteractionEvent event) throws UnauthorizedException, InstantiationException{
-        if(InteractionActionable.class.isAssignableFrom(clazz)){
-            T command = (T) commandsUtil.commands.get(clazz);
-            if (CommandsUtil.isAuthorized(Objects.requireNonNull(event.getMember()), command.getAccessLevel()))
-                return command;
-            throw new UnauthorizedException();
-        }
-        throw new InstantiationException();
+        return getCommand(clazz, event.getMember(), InteractionActionable.class);
     }
 
     public static <T extends BaseCommand> void addCommand(T command){
@@ -55,38 +46,15 @@ public class CommandsUtil {
         }
     }
 
-    public static String getDiscordIdFromMention(String mention){
-        return mention.substring(2, mention.length()-1);
-    }
-
-    public static boolean match(String target, CommandPatternType... patterns){
-        StringBuilder patternBuilder = new StringBuilder();
-        patternBuilder.append("^\s*");
-        for(int i = 0; i<patterns.length; i++){
-            CommandPatternType pattern = patterns[i];
-            switch(pattern){
-                case INT -> patternBuilder.append("\\d+");
-                case COMMAND -> patternBuilder.append("\\.\\w+");
-                case MENTION -> patternBuilder.append("<@\\d+>");
-                case STRING -> patternBuilder.append("\\w+");
-            }
-            if(i!=patterns.length-1) patternBuilder.append("\\s+");
-            else patternBuilder.append("\\s*$");
+    @SuppressWarnings("unchecked")
+    private static <T extends BaseCommand> T getCommand(Class<T> clazz, Member member, Class<? extends ActionableCommands> clazzAct) throws UnauthorizedException, InstantiationException{
+        if(clazzAct.isAssignableFrom(clazz)){
+            T command = (T) commandsUtil.commands.get(clazz);
+            if (CommandsUtil.isAuthorized(Objects.requireNonNull(member), command.getAccessLevel()))
+                return command;
+            throw new UnauthorizedException();
         }
-        return Pattern.compile(patternBuilder.toString()).matcher(target).matches();
-    }
-
-    public static String[] getPrompt(MessageReceivedEvent event){
-        String strippedMessage = event.getMessage().getContentRaw().strip();
-        return strippedMessage.split("\\s+");
-    }
-
-    private CommandsUtil(){
-        commands = new HashMap<>();
-    }
-
-    private static CommandsUtil build(){
-        return new CommandsUtil();
+        throw new InstantiationException();
     }
 
     private static boolean isAuthorized(Member member, CommandAccessLevel commandAccessLevel){
