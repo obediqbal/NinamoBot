@@ -4,5 +4,6 @@ public enum CommandPatternType {
     COMMAND,
     STRING,
     INT,
-    MENTION
+    MENTION,
+    CHANNEL
 }
