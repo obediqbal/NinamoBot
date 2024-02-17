@@ -1,5 +1,6 @@
 package dev.rezapu.model;
 
+import dev.rezapu.exceptions.BadUsageException;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.Accessors;
@@ -31,9 +32,9 @@ public class Member {
         this.point += point;
         return this;
     }
-    public Member removePoint(int point) throws Exception{
+    public Member removePoint(int point) throws BadUsageException {
         if(this.point-point<0){
-            throw new Exception();
+            throw new BadUsageException("Poin tidak cukup");
         }
         this.point -= point;
         return this;
