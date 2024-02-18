@@ -2,6 +2,7 @@ package dev.rezapu;
 
 import dev.rezapu.commands.PingCommand;
 import dev.rezapu.enums.CommandAccessLevel;
+import dev.rezapu.listeners.ManageFoodBuffListener;
 import dev.rezapu.listeners.ManageMembersListener;
 import dev.rezapu.listeners.PingListener;
 import dev.rezapu.utils.CommandsUtil;
@@ -24,8 +25,8 @@ public class Main {
         JDABuilder builder = JDABuilder.createDefault(System.getProperty("BOT_TOKEN"));
 
         JDA jda = builder
-                .setActivity(Activity.listening("your heatbeat"))
-                .addEventListeners(new PingListener(), new ManageMembersListener())
+                .setActivity(Activity.playing("your eardrum"))
+                .addEventListeners(new PingListener(), new ManageMembersListener(), new ManageFoodBuffListener())
                 .enableIntents(GatewayIntent.MESSAGE_CONTENT, GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_PRESENCES)
                 .setChunkingFilter(ChunkingFilter.ALL)
                 .setMemberCachePolicy(MemberCachePolicy.ALL)

@@ -7,7 +7,10 @@ import dev.rezapu.utils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class FoodBuffDAO extends BaseDAO<FoodBuff> {
     public List<FoodBuff> getByAddress(String address){
@@ -25,5 +28,38 @@ public class FoodBuffDAO extends BaseDAO<FoodBuff> {
                     .setParameter("type", type)
                     .getResultList();
         }
+    }
+    public Map<FoodBuffType, List<FoodBuff>> getAll(){
+        Map<FoodBuffType, List<FoodBuff>> res = new HashMap<>();
+        try(Session session = sessionFactory.openSession()){
+            session.beginTransaction();
+
+            List<FoodBuffType> types = session.createQuery("SELECT type FROM FoodBuff GROUP BY type", FoodBuffType.class)
+                    .getResultList();
+
+            for(FoodBuffType type: types){
+                List<FoodBuff> foodBuffList = session.createQuery("FROM FoodBuff WHERE type=:type GROUP BY id, type ORDER BY level DESC ", FoodBuff.class)
+                        .setParameter("type", type)
+                        .getResultList();
+                res.put(type, foodBuffList);
+            }
+        }
+
+        return res;
+    }
+    public Map<FoodBuffType, List<FoodBuff>> getByTypes(FoodBuffType... types){
+        Map<FoodBuffType, List<FoodBuff>> res = new HashMap<>();
+        try(Session session = sessionFactory.openSession()){
+            session.beginTransaction();
+
+            for(FoodBuffType type: types){
+                List<FoodBuff> foodBuffList = session.createQuery("FROM FoodBuff WHERE type=:type GROUP BY id, type ORDER BY level DESC ", FoodBuff.class)
+                        .setParameter("type", type)
+                        .getResultList();
+                res.put(type, foodBuffList);
+            }
+        }
+
+        return res;
     }
 }

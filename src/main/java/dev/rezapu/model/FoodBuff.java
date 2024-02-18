@@ -27,11 +27,20 @@ public class FoodBuff {
     private FoodBuffType type;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.ORDINAL)
+    private FoodBuffType type_order;
+
+    @Column(nullable = false)
     private int level;
 
-    public FoodBuff(@NotNull String address, @NotNull FoodBuffType type, int level) {
+    @Column(nullable = false)
+    private String stats;
+
+    public FoodBuff(@NotNull String address, @NotNull FoodBuffType type, int level, String stats) {
         this.address = address;
         this.type = type;
+        this.type_order = type;
         this.level = level;
+        this.stats = stats;
     }
 }

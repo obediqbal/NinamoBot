@@ -1,22 +1,47 @@
 package dev.rezapu.enums;
 
+import dev.rezapu.exceptions.BadUsageException;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 public enum FoodBuffType {
-    MAX_HP,
-    MAX_MP,
-    AMPR,
-    CRITICAL_RATE,
-    ATK,
-    WATK,
-    STR,
-    DEX,
-    INT,
-    AGI,
-    VIT,
-    ACCURACY,
-    DTE_NEUTRAL,
-    DTE_FIRE,
-    DTE_WATER,
-    DTE_WIND,
-    DTE_DARK,
-    DTE_LIGHT
+    MAX_HP("hp", "Max HP"),
+    MAX_MP("mp", "Max MP"),
+    AMPR("ampr", "Attack MP Recovery"),
+    CR("cr", "Critical Rate"),
+    MATK("matk", "Magic Attack"),
+    ATK("atk", "Attack"),
+    WATK("watk", "Weapon Attack"),
+    STR("str", "Strength"),
+    DEX("dex", "Dexterity"),
+    INT("int", "Intelligence"),
+    AGI("agi", "Agility"),
+    VIT("vit", "Vitality"),
+    ACCURACY("acc", "Accuracy"),
+    DTE_NEUTRAL("neutral", "Damage To Element: Neutral"),
+    DTE_FIRE("fire", "Damage To Element: Fire"),
+    DTE_WATER("water", "Damage To Element: Water"),
+    DTE_WIND("wind", "Damage To Element: Wind"),
+    DTE_DARK("dark", "Damage To Element: Dark"),
+    DTE_LIGHT("light", "Damage To Element: Light"),
+    MAGIC_RESIST("mresist", "Magic Resist"),
+    PHYSICAL_RESIST("presist", "Physical Resist"),
+    PLUS_AGGRO("+aggro", "+Aggro%"),
+    MINUS_AGGRO("-aggro", "-Aggro%"),
+    FRACTIONAL_BARRIER("fracbarrier", "Fractional Barrier");
+
+    @Getter
+    @NonNull
+    private final String type;
+    @Getter
+    @NonNull
+    private final String display_name;
+    public static FoodBuffType fromString(String value) throws BadUsageException{
+        for(FoodBuffType type: FoodBuffType.values()){
+            if(value.equalsIgnoreCase(type.getType())) return type;
+        }
+        throw new BadUsageException("Tidak ada buff dengan tipe "+value);
+    }
 }
