@@ -27,6 +27,9 @@ public class Member {
     @Column(columnDefinition = "INT DEFAULT 0")
     private int point;
 
+    @Column(columnDefinition = "INT DEFAULT 0")
+    private int raid;
+
 
     public Member addPoint(int point){
         this.point += point;
@@ -37,6 +40,17 @@ public class Member {
             throw new BadUsageException("Poin tidak cukup");
         }
         this.point -= point;
+        return this;
+    }
+    public Member incRaid(){
+        this.raid++;
+        return this;
+    }
+    public Member decRaid() throws BadUsageException{
+        if(this.point-1<0){
+            throw new BadUsageException("Raid sudah nol");
+        }
+        this.raid--;
         return this;
     }
 }
