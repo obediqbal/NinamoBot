@@ -43,10 +43,9 @@ public class ModifyPointCommand extends BaseCommand implements MessageActionable
                 memberDAO.updateData(target.removePoint(point));
                 event.getMessage().reply("Berhasil mengurangi poin <@"+target_id+"> sebanyak "+point).queue();
             }
-            LeaderboardHook leaderboardHook = HooksUtil.getHook(LeaderboardHook.class);
-            if(leaderboardHook != null) leaderboardHook.update();
+            HooksUtil.updateHooks(LeaderboardHook.class);
         } catch (BadUsageException e){
-            throw new BadUsageException(e.getMessage()+String.format(". Sisa poin <@%s>: %d", target_id, point));
+            throw new BadUsageException(e.getMessage()+String.format(". Sisa poin <@%s>: %d", target_id, target.getPoint()));
         }catch(Exception e){
             throw new RuntimeException(e);
         }

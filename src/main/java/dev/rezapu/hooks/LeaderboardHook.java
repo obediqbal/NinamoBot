@@ -10,6 +10,7 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.channel.middleman.GuildMessageChannel;
 import net.dv8tion.jda.api.entities.channel.unions.GuildMessageChannelUnion;
+import net.dv8tion.jda.api.exceptions.ErrorResponseException;
 
 import java.awt.*;
 import java.util.List;
@@ -28,7 +29,7 @@ public class LeaderboardHook extends BaseHook {
                 .build();
     }
 
-    public LeaderboardHook connect(JDA jda, Hook hook) throws InstantiationException{
+    public LeaderboardHook connect(JDA jda, Hook hook) throws InstantiationException, ErrorResponseException{
         if(!hook.getType().getHookClass().equals(LeaderboardHook.class)) throw new InstantiationException();
 
         this.message = ((GuildMessageChannelUnion) Objects.requireNonNull(jda.getGuildChannelById(hook.getChannel_id())))
@@ -55,14 +56,22 @@ public class LeaderboardHook extends BaseHook {
     }
 
     public void update(){
-        this.message.getChannel().retrieveMessageById(this.message.getId())
-                .queue(message -> {
-                    this.message = message;
-                    if(this.message == null) HooksUtil.deleteHook(this);
-                    updateEmbed();
-                    this.message.editMessageEmbeds(messageEmbed).queue();
-                }
-        );
+        try{
+            this.message.getChannel().retrieveMessageById(this.message.getId())
+                    .queue(message -> {
+                                this.message = message;
+                                updateEmbed();
+                                this.message.editMessageEmbeds(messageEmbed).queue();
+                            }
+                    );
+        }catch(ErrorResponseException e){
+            if (e.getErrorCode()==10008) {
+                HooksUtil.deleteHook(this);
+            } throw new RuntimeException(e);
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
+
     }
 
     private void updateEmbed(){

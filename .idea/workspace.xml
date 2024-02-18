@@ -5,15 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="143753a0-3a7e-4705-9c57-d562bccd0b93" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/rezapu/commands/ProfileCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/rezapu/exceptions/UnknownCommandException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dev/rezapu/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/rezapu/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dev/rezapu/commands/ModifyPointCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/rezapu/commands/ModifyPointCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dev/rezapu/dao/BaseDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/rezapu/dao/BaseDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dev/rezapu/exceptions/NotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/rezapu/exceptions/NotFoundException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dev/rezapu/listeners/ManageMembersListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/rezapu/listeners/ManageMembersListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dev/rezapu/utils/CommandsUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/rezapu/utils/CommandsUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/rezapu/hooks/LeaderboardHook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/rezapu/hooks/LeaderboardHook.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/rezapu/utils/HooksUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/rezapu/utils/HooksUtil.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,8 +18,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Enum" />
         <option value="Interface" />
+        <option value="Enum" />
         <option value="Class" />
       </list>
     </option>
@@ -34,6 +29,9 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
   </component>
   <component name="ProjectId" id="2c6tpu4FoSum9iZsI9jCb3cNNb4" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -55,6 +53,62 @@
       <recent name="dev.rezapu.commands" />
     </key>
   </component>
+  <component name="RunManager" selected="Application.Unnamed">
+    <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="dev.rezapu.Main" />
+      <module name="NinamoBot" />
+      <extension name="net.ashald.envfile">
+        <option name="IS_ENABLED" value="false" />
+        <option name="IS_SUBST" value="false" />
+        <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
+        <option name="IS_IGNORE_MISSING_FILES" value="false" />
+        <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
+        <ENTRIES>
+          <ENTRY IS_ENABLED="true" PARSER="runconfig" IS_EXECUTABLE="false" />
+        </ENTRIES>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="NinamoBot" type="MavenRunConfiguration" factoryName="Maven" nameIsGenerated="true">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list />
+            </option>
+            <option name="pomFileName" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <extension name="net.ashald.envfile">
+        <option name="IS_ENABLED" value="false" />
+        <option name="IS_SUBST" value="false" />
+        <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
+        <option name="IS_IGNORE_MISSING_FILES" value="false" />
+        <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
+        <ENTRIES>
+          <ENTRY IS_ENABLED="true" PARSER="runconfig" IS_EXECUTABLE="false" />
+        </ENTRIES>
+      </extension>
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Application.Unnamed" />
+      <item itemvalue="Maven.NinamoBot" />
+    </list>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -71,6 +125,10 @@
       <workItem from="1707626482304" duration="18602000" />
       <workItem from="1707899393805" duration="15583000" />
       <workItem from="1707988966763" duration="17559000" />
+      <workItem from="1708071977428" duration="8498000" />
+      <workItem from="1708097961656" duration="6623000" />
+      <workItem from="1708154651921" duration="20472000" />
+      <workItem from="1708215799986" duration="4083000" />
     </task>
     <servers />
   </component>
