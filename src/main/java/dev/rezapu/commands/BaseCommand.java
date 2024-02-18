@@ -31,7 +31,7 @@ public abstract class BaseCommand {
     protected String getChannelIdFromMention(String mention){return getDiscordIdFromMention(mention);}
 
     protected String[] getPrompt(MessageReceivedEvent event){
-        String strippedMessage = event.getMessage().getContentRaw().strip();
+        String strippedMessage = event.getMessage().getContentRaw().strip().toLowerCase();
         return strippedMessage.split("\\s+");
     }
 
