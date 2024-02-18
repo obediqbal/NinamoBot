@@ -10,7 +10,7 @@ public enum FoodBuffType {
     MAX_HP("hp", "Max HP"),
     MAX_MP("mp", "Max MP"),
     AMPR("ampr", "Attack MP Recovery"),
-    CR("cr", "Critical Rate"),
+    CRITICAL_RATE("cr", "Critical Rate"),
     MATK("matk", "Magic Attack"),
     ATK("atk", "Attack"),
     WATK("watk", "Weapon Attack"),
