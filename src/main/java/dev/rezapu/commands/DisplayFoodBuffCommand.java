@@ -36,7 +36,9 @@ public class DisplayFoodBuffCommand extends BaseCommand implements MessageAction
             case "all" -> {
                 Map<FoodBuffType, List<FoodBuff>> foodBuffTypeListMap = foodBuffDAO.getAll();
 
-                for(List<FoodBuff> foodBuffs: foodBuffTypeListMap.values()){
+                for(FoodBuffType type: FoodBuffType.values()){
+                    List<FoodBuff> foodBuffs = foodBuffTypeListMap.get(type);
+                    if(foodBuffs==null || foodBuffs.isEmpty()) continue;
                     load(embedBuilder, foodBuffs.get(0).getType(), foodBuffs);
                 }
             }
