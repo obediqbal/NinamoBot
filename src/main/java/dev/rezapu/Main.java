@@ -17,8 +17,9 @@ import net.dv8tion.jda.api.utils.MemberCachePolicy;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException{
-        Dotenv dotenv = Dotenv.load();
-        JDABuilder builder = JDABuilder.createDefault(dotenv.get("BOT_TOKEN"));
+        Dotenv.configure().ignoreIfMissing().systemProperties().load();
+
+        JDABuilder builder = JDABuilder.createDefault(System.getProperty("BOT_TOKEN"));
 
         JDA jda = builder
                 .setActivity(Activity.listening("your heatbeat"))
