@@ -24,14 +24,14 @@ public enum FoodBuffType {
     DTE_FIRE("fire", "Damage To Element: Fire"),
     DTE_WATER("water", "Damage To Element: Water"),
     DTE_WIND("wind", "Damage To Element: Wind"),
+    DTE_EARTH("earth", "Damage To Element: Earth"),
     DTE_DARK("dark", "Damage To Element: Dark"),
     DTE_LIGHT("light", "Damage To Element: Light"),
     MAGIC_RESIST("mresist", "Magic Resist"),
     PHYSICAL_RESIST("presist", "Physical Resist"),
     PLUS_AGGRO("paggro", "+Aggro%"),
     MINUS_AGGRO("maggro", "-Aggro%"),
-    FRACTIONAL_BARRIER("fracbarrier", "Fractional Barrier"),
-    DTE_EARTH("earth", "Damage To Element: Earth");
+    FRACTIONAL_BARRIER("fracbarrier", "Fractional Barrier");
 
     @Getter
     @NonNull
