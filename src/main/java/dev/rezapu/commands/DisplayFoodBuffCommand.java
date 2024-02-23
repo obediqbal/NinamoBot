@@ -39,7 +39,7 @@ public class DisplayFoodBuffCommand extends BaseCommand implements MessageAction
                 for(FoodBuffType type: FoodBuffType.values()){
                     List<FoodBuff> foodBuffs = foodBuffTypeListMap.get(type);
                     if(foodBuffs==null || foodBuffs.isEmpty()) continue;
-                    load(embedBuilder, foodBuffs.get(0).getType(), foodBuffs, true);
+                    load(embedBuilder, foodBuffs.get(0).getType(), foodBuffs, false);
                 }
             }
             case "stats", "stat" -> {
