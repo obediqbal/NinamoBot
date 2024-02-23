@@ -25,7 +25,7 @@ public class DisplayFoodBuffCommand extends BaseCommand implements MessageAction
     @Override
     public void action(MessageReceivedEvent event) throws InvalidUsageException, IllegalArgumentException, BadUsageException {
         String[] prompts = getPrompt(event);
-        if(!isUsageValid(event.getMessage().getContentRaw().strip().toLowerCase())) throw new InvalidUsageException(".buff <all|hp|mp|ampr|cr|atk|watk|str|dex|int|agi|vit>");
+        if(!isUsageValid(event.getMessage().getContentRaw().strip().toLowerCase())) throw new InvalidUsageException(".buff <all|type>");
 
         EmbedBuilder embedBuilder = new EmbedBuilder()
                 .setColor(Color.GRAY)
@@ -43,13 +43,33 @@ public class DisplayFoodBuffCommand extends BaseCommand implements MessageAction
                 }
             }
             case "stats", "stat" -> {
-                loadTypes(embedBuilder, foodBuffDAO, FoodBuffType.STR, FoodBuffType.AGI, FoodBuffType.DEX, FoodBuffType.INT, FoodBuffType.VIT);
+                loadTypes(embedBuilder, foodBuffDAO,
+                        FoodBuffType.STR,
+                        FoodBuffType.AGI,
+                        FoodBuffType.DEX,
+                        FoodBuffType.INT,
+                        FoodBuffType.VIT);
             }
             case "resist", "resis", "res" -> {
-                loadTypes(embedBuilder, foodBuffDAO, FoodBuffType.MAGIC_RESIST, FoodBuffType.PHYSICAL_RESIST, FoodBuffType.FRACTIONAL_BARRIER);
+                loadTypes(embedBuilder, foodBuffDAO,
+                        FoodBuffType.MAGIC_RESIST,
+                        FoodBuffType.PHYSICAL_RESIST,
+                        FoodBuffType.FRACTIONAL_BARRIER);
             }
             case "aggro", "agro", "aggr", "agrro" -> {
-                loadTypes(embedBuilder, foodBuffDAO, FoodBuffType.PLUS_AGGRO, FoodBuffType.MINUS_AGGRO);
+                loadTypes(embedBuilder, foodBuffDAO,
+                        FoodBuffType.PLUS_AGGRO,
+                        FoodBuffType.MINUS_AGGRO);
+            }
+            case "dte" -> {
+                loadTypes(embedBuilder, foodBuffDAO,
+                        FoodBuffType.DTE_WATER,
+                        FoodBuffType.DTE_WIND,
+                        FoodBuffType.DTE_NEUTRAL,
+                        FoodBuffType.DTE_EARTH,
+                        FoodBuffType.DTE_DARK,
+                        FoodBuffType.DTE_LIGHT,
+                        FoodBuffType.DTE_FIRE);
             }
             default -> {
                 FoodBuffType type = FoodBuffType.fromString(prompts[1]);
