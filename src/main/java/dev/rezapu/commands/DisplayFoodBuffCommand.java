@@ -39,7 +39,7 @@ public class DisplayFoodBuffCommand extends BaseCommand implements MessageAction
                 for(FoodBuffType type: FoodBuffType.values()){
                     List<FoodBuff> foodBuffs = foodBuffTypeListMap.get(type);
                     if(foodBuffs==null || foodBuffs.isEmpty()) continue;
-                    load(embedBuilder, foodBuffs.get(0).getType(), foodBuffs);
+                    load(embedBuilder, foodBuffs.get(0).getType(), foodBuffs, true);
                 }
             }
             case "stats", "stat" -> {
@@ -74,19 +74,19 @@ public class DisplayFoodBuffCommand extends BaseCommand implements MessageAction
             default -> {
                 FoodBuffType type = FoodBuffType.fromString(prompts[1]);
                 List<FoodBuff> foodBuffs = foodBuffDAO.getByType(type);
-                load(embedBuilder, type, foodBuffs);
+                load(embedBuilder, type, foodBuffs, false);
             }
         }
         event.getMessage().replyEmbeds(embedBuilder.build()).queue();
     }
 
-    private void load(EmbedBuilder embedBuilder, FoodBuffType type, List<FoodBuff> foodBuffs) {
+    private void load(EmbedBuilder embedBuilder, FoodBuffType type, List<FoodBuff> foodBuffs, boolean inline) {
         StringBuilder stringBuilder = new StringBuilder();
 
         for(FoodBuff foodBuff: foodBuffs){
             stringBuilder.append(String.format("> %s `LV%d %s`\n", foodBuff.getAddress() ,foodBuff.getLevel(), foodBuff.getStats()));
         }
-        embedBuilder.addField(type.getDisplay_name()+"★", stringBuilder.toString(), false);
+        embedBuilder.addField(type.getDisplay_name()+"★", stringBuilder.toString(), inline);
     }
 
     private void loadTypes(EmbedBuilder embedBuilder, FoodBuffDAO foodBuffDAO, FoodBuffType... types){
@@ -96,7 +96,7 @@ public class DisplayFoodBuffCommand extends BaseCommand implements MessageAction
         for(FoodBuffType type: types){
             List<FoodBuff> foodBuffs = foodBuffTypeListMap.get(type);
             if(foodBuffs==null || foodBuffs.isEmpty()) continue;
-            load(embedBuilder, foodBuffs.get(0).getType(), foodBuffs);
+            load(embedBuilder, foodBuffs.get(0).getType(), foodBuffs, false);
         }
     }
 }
