@@ -42,7 +42,8 @@ public class ProfileCommand extends BaseCommand implements MessageActionable{
                 .setTitle(target.getEffectiveName())
                 .addField("Username", target.getUser().getName(), false)
                 .addField("IGN", targetModel.getIgn(), false)
-                .addField("Point", Integer.toString(targetModel.getPoint()), false);
+                .addField("Point", Integer.toString(targetModel.getPoint()), false)
+                .addField("Raid", Integer.toString(targetModel.getRaid()), false);
 
         event.getChannel().sendMessageEmbeds(embedBuilder.build()).queue();
     }

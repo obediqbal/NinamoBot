@@ -4,6 +4,7 @@ import dev.rezapu.model.Member;
 import dev.rezapu.utils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.mapping.List;
 
 import java.util.List;
 
@@ -30,6 +31,14 @@ public class MemberDAO extends BaseDAO<Member>{
         try(Session session = sessionFactory.openSession()){
             session.beginTransaction();
             return session.createQuery("FROM Member ORDER BY point DESC", Member.class)
+                    .getResultList();
+        }
+    }
+
+    public List<Member> GetAllSortedByRaid(){
+        try(Session session = sessionFactory.openSession()){
+            session.beginTransaction();
+            return session.createQuery("FROM Member ORDER BY raid DESC", Member.class)
                     .getResultList();
         }
     }
