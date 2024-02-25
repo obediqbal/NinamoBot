@@ -1,9 +1,6 @@
 package dev.rezapu.listeners;
 
-import dev.rezapu.commands.AddPointCommand;
-import dev.rezapu.commands.DeductPointCommand;
-import dev.rezapu.commands.LeaderboardCommand;
-import dev.rezapu.commands.ProfileCommand;
+import dev.rezapu.commands.*;
 import dev.rezapu.enums.CommandAccessLevel;
 import dev.rezapu.exceptions.BadUsageException;
 import dev.rezapu.exceptions.InvalidUsageException;
@@ -16,10 +13,12 @@ public class ManageMembersListener extends BaseListener {
     public ManageMembersListener(){
         AddPointCommand addPointCommand = new AddPointCommand(CommandAccessLevel.ADMIN, "Add a specified amount of point to user");
         DeductPointCommand deductPointCommand = new DeductPointCommand(CommandAccessLevel.ADMIN, "Deduct a specified amount of point from user");
+        AddRaidCommand addRaidCommand = new AddRaidCommand(CommandAccessLevel.ADMIN, "Add raid status when you joining raid");
+        DeductRaidCommand deductRaidCommand = new DeductRaidCommand(CommandAccessLevel.ADMIN, "deduct raid status when false add raid");
         ProfileCommand profileCommand = new ProfileCommand(CommandAccessLevel.PUBLIC, "Shows the profile of the selected user");
         LeaderboardCommand leaderboardCommand = new LeaderboardCommand(CommandAccessLevel.ADMIN, "Shows the guild leaderboard");
 
-        CommandsUtil.addCommands(addPointCommand, deductPointCommand, profileCommand, leaderboardCommand);
+        CommandsUtil.addCommands(addPointCommand, deductPointCommand, addRaidCommand, deductRaidCommand, profileCommand, leaderboardCommand);
     }
 
     @Override
@@ -34,6 +33,12 @@ public class ManageMembersListener extends BaseListener {
                 }
                 case ".deductp", ".deductpoint", ".pdeduct", ".pointdeduct", ".dp" -> {
                     CommandsUtil.getCommand(DeductPointCommand.class, event).action(event);
+                }
+                case ".addr", ".addraid", ".radd", ".raidadd", ".ar" -> {
+                    CommandsUtil.getCommand(AddRaidCommand.class, event).action(event);
+                }
+                case ".deductr", ".deductraid", ".rdeduct", ".raiddeduct", ".dr" -> {
+                    CommandsUtil.getCommand(DeductRaidCommand.class, event).action(event);
                 }
                 case ".p", ".profile" -> {
                     CommandsUtil.getCommand(ProfileCommand.class, event).action(event);

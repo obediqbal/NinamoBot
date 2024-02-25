@@ -47,7 +47,7 @@ public class Member {
         return this;
     }
     public Member decRaid() throws BadUsageException{
-        if(this.point-1<0){
+        if(this.raid-1<0){
             throw new BadUsageException("Raid sudah nol");
         }
         this.raid--;

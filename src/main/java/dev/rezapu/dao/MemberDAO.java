@@ -33,4 +33,12 @@ public class MemberDAO extends BaseDAO<Member>{
                     .getResultList();
         }
     }
+
+    public List<Member> GetAllSortedByRaid(){
+        try(Session session = sessionFactory.openSession()){
+            session.beginTransaction();
+            return session.createQuery("FROM Member ORDER BY raid DESC", Member.class)
+                    .getResultList();
+        }
+    }
 }
