@@ -17,7 +17,7 @@ public class FoodBuff {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 7)
     @NonNull
     private String address;
 
