@@ -1,9 +1,6 @@
 package dev.rezapu.listeners;
 
-import dev.rezapu.commands.AddPointCommand;
-import dev.rezapu.commands.DeductPointCommand;
-import dev.rezapu.commands.LeaderboardCommand;
-import dev.rezapu.commands.ProfileCommand;
+import dev.rezapu.commands.*;
 import dev.rezapu.enums.CommandAccessLevel;
 import dev.rezapu.exceptions.BadUsageException;
 import dev.rezapu.exceptions.InvalidUsageException;
@@ -34,6 +31,12 @@ public class ManageMembersListener extends BaseListener {
                 }
                 case ".deductp", ".deductpoint", ".pdeduct", ".pointdeduct", ".dp" -> {
                     CommandsUtil.getCommand(DeductPointCommand.class, event).action(event);
+                }
+                case ".addr", ".addraid", ".radd", ".raidadd", "ar" -> {
+                    CommandsUtil.getCommand(AddRaidCommand.class, event).action(event);
+                }
+                case ".deductr", ".deductraid", ".rdeduct", ".raiddeduct", ".dr" -> {
+                    CommandsUtil.getCommand(DeductRaidCommand.class, event).action(event);
                 }
                 case ".p", ".profile" -> {
                     CommandsUtil.getCommand(ProfileCommand.class, event).action(event);

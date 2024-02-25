@@ -42,11 +42,11 @@ public class Member {
         this.point -= point;
         return this;
     }
-    public Member incRaid(int raid){
+    public Member incRaid(){
         this.raid++;
         return this;
     }
-    public Member decRaid(int raid) throws BadUsageException{
+    public Member decRaid() throws BadUsageException{
         if(this.raid-1<0){
             throw new BadUsageException("Raid sudah nol");
         }
