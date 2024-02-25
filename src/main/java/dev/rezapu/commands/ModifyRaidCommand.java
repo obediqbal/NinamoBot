@@ -18,7 +18,6 @@ public class ModifyRaidCommand extends BaseCommand implements MessageActionable{
         super(accessLevel, description, new CommandPatternType[]{
                 CommandPatternType.COMMAND,
                 CommandPatternType.MENTION,
-                CommandPatternType.INT
         });
         this.add = add;
     }
@@ -26,22 +25,20 @@ public class ModifyRaidCommand extends BaseCommand implements MessageActionable{
     public void action(MessageReceivedEvent event) throws InvalidUsageException, BadUsageException {
         String[] prompts = getPrompt(event);
 
-        if(!isUsageValid(event.getMessage().getContentRaw().strip())) throw new InvalidUsageException("<@User> <Jumlah raid>");
+        if(!isUsageValid(event.getMessage().getContentRaw().strip())) throw new InvalidUsageException("<@User>");
 
         MemberDAO memberDAO = new MemberDAO();
         String target_id = getDiscordIdFromMention(prompts[1]);
         Member target = memberDAO.getByDiscordId(target_id);
         if(target == null) target = memberDAO.addData(new Member(target_id));
         assert target != null;
-
-        int raid = Integer.parseInt(prompts[2]);
         try{
             if (this.add){
-                memberDAO.updateData(target.incRaid(raid));
-                event.getMessage().reply("Berhasil menambahkan raid untuk <@"+target_id+"> sebanyak "+raid).queue();
+                memberDAO.updateData(target.incRaid());
+                event.getMessage().reply("Berhasil menambahkan raid untuk <@"+target_id+">").queue();
             } else{
-                memberDAO.updateData(target.decRaid(raid));
-                event.getMessage().reply("Berhasil mengurangi raid <@"+target_id+"> sebanyak "+raid).queue();
+                memberDAO.updateData(target.decRaid());
+                event.getMessage().reply("Berhasil mengurangi raid <@"+target_id+">").queue();
             }
             HooksUtil.updateHooks(LeaderboardHook.class);
         } catch (BadUsageException e){

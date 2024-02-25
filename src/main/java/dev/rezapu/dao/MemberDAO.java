@@ -4,7 +4,6 @@ import dev.rezapu.model.Member;
 import dev.rezapu.utils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.mapping.List;
 
 import java.util.List;
 
