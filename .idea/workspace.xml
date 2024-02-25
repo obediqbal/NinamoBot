@@ -5,13 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="143753a0-3a7e-4705-9c57-d562bccd0b93" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/rezapu/commands/AddRaidCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/rezapu/commands/ModifyRaidCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dev/rezapu/commands/DeductRaidCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dev/rezapu/commands/ProfileCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/rezapu/commands/ProfileCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dev/rezapu/dao/MemberDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/rezapu/dao/MemberDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dev/rezapu/model/Member.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/rezapu/model/Member.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
