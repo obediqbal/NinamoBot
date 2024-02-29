@@ -67,7 +67,7 @@ public class CommandsUtil {
 
         CommandAccessLevel memberLevel;
         if(member.isOwner() || member.hasPermission(Permission.ADMINISTRATOR)) memberLevel = CommandAccessLevel.ADMIN;
-        else if (member.getGuild().getRoleById("1205192109745766432") != null) memberLevel = commandAccessLevel.MOD;
+        else if (member.getRoles().contains(member.getGuild().getRoleById("1205192109745766432"))) memberLevel = commandAccessLevel.MOD;
         else memberLevel = CommandAccessLevel.MEMBER;
 
         return memberLevel.getLevel() >= commandAccessLevel.getLevel();
