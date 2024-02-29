@@ -13,8 +13,8 @@ public class ManageMembersListener extends BaseListener {
     public ManageMembersListener(){
         AddPointCommand addPointCommand = new AddPointCommand(CommandAccessLevel.ADMIN, "Add a specified amount of point to user");
         DeductPointCommand deductPointCommand = new DeductPointCommand(CommandAccessLevel.ADMIN, "Deduct a specified amount of point from user");
-        AddRaidCommand addRaidCommand = new AddRaidCommand(CommandAccessLevel.ADMIN, "Add raid status when you joining raid");
-        DeductRaidCommand deductRaidCommand = new DeductRaidCommand(CommandAccessLevel.ADMIN, "deduct raid status when false add raid");
+        AddRaidCommand addRaidCommand = new AddRaidCommand(CommandAccessLevel.MOD, "Add raid status when you joining raid");
+        DeductRaidCommand deductRaidCommand = new DeductRaidCommand(CommandAccessLevel.MOD, "deduct raid status when false add raid");
         ProfileCommand profileCommand = new ProfileCommand(CommandAccessLevel.PUBLIC, "Shows the profile of the selected user");
         LeaderboardCommand leaderboardCommand = new LeaderboardCommand(CommandAccessLevel.ADMIN, "Shows the guild leaderboard");
 
