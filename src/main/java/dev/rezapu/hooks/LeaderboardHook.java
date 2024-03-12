@@ -88,7 +88,7 @@ public class LeaderboardHook extends BaseHook {
                             rank,
                             discordMember.getEffectiveName(),
                             member.getIgn().equals("-")?"":String.format("(%s)", member.getIgn())),
-                    String.format("%d point", member.getPoint()),
+                    String.format("%d point | %d raid", member.getPoint(), member.getRaid()),
                     false);
             embedBuilder.addField(field);
             rank++;
