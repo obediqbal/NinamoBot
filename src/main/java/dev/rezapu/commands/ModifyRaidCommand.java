@@ -35,10 +35,12 @@ public class ModifyRaidCommand extends BaseCommand implements MessageActionable{
         try{
             if (this.add){
                 memberDAO.updateData(target.incRaid());
-                event.getMessage().reply("Berhasil menambahkan raid untuk <@"+target_id+">").queue();
+                memberDAO.updateData(target.addPoint(2));
+                event.getMessage().reply("Berhasil menambahkan raid untuk <@"+target_id+"> dan menambahkan 2 poin").queue();
             } else{
                 memberDAO.updateData(target.decRaid());
-                event.getMessage().reply("Berhasil mengurangi raid <@"+target_id+">").queue();
+                memberDAO.updateData(target.removePoint(2));
+                event.getMessage().reply("Berhasil mengurangi raid <@"+target_id+"> dan mengurangi 2 poin").queue();
             }
             HooksUtil.updateHooks(LeaderboardHook.class);
         } catch (BadUsageException e){
