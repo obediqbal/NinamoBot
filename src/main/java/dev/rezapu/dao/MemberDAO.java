@@ -29,7 +29,7 @@ public class MemberDAO extends BaseDAO<Member>{
     public List<Member> getAllSortedByPoints(){
         try(Session session = sessionFactory.openSession()){
             session.beginTransaction();
-            return session.createQuery("FROM Member ORDER BY point DESC", Member.class)
+            return session.createQuery("FROM Member ORDER BY point DESC, raid DESC", Member.class)
                     .getResultList();
         }
     }
